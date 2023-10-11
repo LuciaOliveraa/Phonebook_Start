@@ -1,15 +1,20 @@
+using System;
 using System.Collections.Generic;
+using System.Xml.XPath;
 
 namespace Library
 {
     public class Phonebook
     {
         private List<Contact> persons;
+        private WhatsAppChannel messageChannel;
 
         public Phonebook(Contact owner)
         {
             this.Owner = owner;
             this.persons = new List<Contact>();
+
+            this.messageChannel = new WhatsAppChannel();
         }
 
         public Contact Owner { get; }
@@ -30,6 +35,35 @@ namespace Library
             }
 
             return result;
+        }
+
+        public void AddContact(string name, string phone, string email)
+        {
+            Contact contact = new Contact(name, phone, email);
+            persons.Add(contact);
+        }
+
+        public void DeleteContact(Contact contact)
+        {
+            persons.Remove(contact);
+        }
+
+        public Contact GetContact(string contactName)
+        {
+            foreach (Contact contact in persons)
+            {
+                if (contact.Name == contactName)
+                {
+                    return contact;
+                }
+            }
+            return null;
+        }
+
+        public void SendMessage(Contact from, Contact to, string text)
+        {
+            Message message = messageChannel.CreateMessage(from, to, text);
+            messageChannel.Send(message);
         }
     }
 }
