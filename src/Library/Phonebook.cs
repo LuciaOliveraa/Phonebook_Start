@@ -7,7 +7,7 @@ namespace Library
     public class Phonebook
     {
         private List<Contact> persons;
-        private WhatsAppChannel messageChannel;
+        private IMessageChannel messageChannel;
 
         public Phonebook(Contact owner)
         {
@@ -37,9 +37,9 @@ namespace Library
             return result;
         }
 
-        public void AddContact(string name, string phone, string email)
+        public void AddContact(Contact contact)
         {
-            Contact contact = new Contact(name, phone, email);
+            //Contact contact = new Contact(name, phone, email);
             persons.Add(contact);
         }
 
