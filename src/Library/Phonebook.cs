@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.XPath;
+using System.Void;
 
 namespace Library
 {
@@ -60,10 +61,19 @@ namespace Library
             return null;
         }
 
-        public void SendMessage(Contact from, Contact to, string text)
+        /*public void SendMessage(Contact from, Contact to, string text)
         {
             Message message = messageChannel.CreateMessage(from, to, text);
             messageChannel.Send(message);
+        }*/
+
+        public string SendMessage(Contact to, string text)
+        {
+            var whatsApp = new WhatsAppApi();
+            string sid = whatsApp.Send(to, text);
+            Console.WriteLine(sid);
         }
+
+
     }
 }
